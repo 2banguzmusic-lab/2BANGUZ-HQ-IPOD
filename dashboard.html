@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>2BANGUZHQ-IPOD | Music</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+  --black:#05070A;
+  --neon:#00B4FF;
+  --cyan:#00F6FF;
+  --silver:#C9CCD6;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    linear-gradient(rgba(5,7,10,.85), rgba(5,7,10,.95)),
+    url("./stadium-skyline.jpg") center/cover no-repeat;
+  color:white;
+}
+
+/* IPOD BODY */
+.ipod{
+  width:340px;
+  background:rgba(5,7,10,.9);
+  border-radius:32px;
+  padding:24px;
+  border:1px solid rgba(0,246,255,.25);
+  box-shadow:
+    0 0 40px rgba(0,180,255,.35),
+    0 40px 90px rgba(0,0,0,.8);
+  text-align:center;
+}
+
+/* SCREEN */
+.screen{
+  background:#0b101a;
+  border-radius:20px;
+  padding:18px;
+  border:1px solid rgba(0,246,255,.2);
+  margin-bottom:20px;
+}
+
+.track{
+  font-size:18px;
+  font-weight:800;
+}
+
+.artist{
+  font-size:12px;
+  color:var(--cyan);
+  margin-top:4px;
+}
+
+/* CONTROLS */
+.controls{
+  display:flex;
+  justify-content:space-around;
+  margin-top:16px;
+}
+
+button{
+  background:none;
+  border:none;
+  color:var(--silver);
+  font-size:20px;
+  cursor:pointer;
+}
+
+/* BUY BUTTON */
+.buy{
+  margin-top:16px;
+  padding:12px;
+  width:100%;
+  border-radius:14px;
+  background:linear-gradient(135deg,var(--cyan),var(--neon));
+  color:#05070A;
+  font-weight:900;
+  border:none;
+  cursor:pointer;
+}
+
+/* SOCIALS */
+.socials{
+  margin-top:18px;
+  font-size:12px;
+}
+
+.socials a{
+  color:var(--cyan);
+  margin:0 6px;
+  text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="ipod">
+  <div class="screen">
+    <div class="track" id="trackName">My First Song</div>
+    <div class="artist">2BANGUZ</div>
+
+    <audio id="player" src="song1.mp3"></audio>
+
+    <div class="controls">
+      <button onclick="prev()">⏮</button>
+      <button onclick="playPause()">▶️</button>
+      <button onclick="next()">⏭</button>
+    </div>
+  </div>
+
+  <button class="buy">$1 • BUY SONG</button>
+
+  <div class="socials">
+    <a href="#" target="_blank">TikTok</a>
+    <a href="#" target="_blank">Instagram</a>
+    <a href="#" target="_blank">YouTube</a>
+    <a href="#" target="_blank">Facebook</a>
+  </div>
+</div>
+
+<script>
+const tracks = [
+  { name:"My First Song", src:"song1.mp3" },
+  { name:"Second Track", src:"song2.mp3" }
+];
+
+let index = 0;
+const player = document.getElementById("player");
+const trackName = document.getElementById("trackName");
+
+function load(){
+  player.src = tracks[index].src;
+  trackName.innerText = tracks[index].name;
+}
+
+function playPause(){
+  player.paused ? player.play() : player.pause();
+}
+
+function next(){
+  index = (index + 1) % tracks.length;
+  load();
+  player.play();
+}
+
+function prev(){
+  index = (index - 1 + tracks.length) % tracks.length;
+  load();
+  player.play();
+}
+
+load();
+</script>
+
+</body>
+</html>
