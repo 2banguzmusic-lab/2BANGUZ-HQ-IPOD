@@ -132,23 +132,23 @@ button{
   let playLogged = false;
 
   function playPause(){
-    player.play()
-      .then(() => {
-        if (!playLogged) {
-          playLogged = true;
+  if (player.paused) {
+    player.play();
 
-          db.collection("plays").add({
-            song: SONG_NAME,
-            src: SONG_SRC,
-            playedAt: firebase.firestore.FieldValue.serverTimestamp()
-          });
-        }
-      })
-      .catch(err => {
-        console.error("AUDIO ERROR:", err);
-        alert("Audio failed to play. Check file path.");
+    // track play ONCE per play session
+    if (!playLogged) {
+      playLogged = true;
+      db.collection("plays").add({
+        song: SONG_NAME,
+        src: SONG_SRC,
+        playedAt: firebase.firestore.FieldValue.serverTimestamp()
       });
+    }
+
+  } else {
+    player.pause();
   }
+}
 </script>
 
 </body>
