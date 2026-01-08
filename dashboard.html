@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+  
 :root{
   --black:#05070A;
   --neon:#00B4FF;
@@ -77,23 +78,51 @@ button{
   cursor:pointer;
 }
 </style>
+  
 </head>
 
 <body>
 
 <div class="ipod">
+
+  <!-- iPod Screen -->
   <div class="screen">
-    <div class="track" id="trackName">Test Song</div>
-    <div class="artist">2BANGUZ</div>
-
-    <audio id="player" preload="auto"></audio>
-
-    <div class="controls">
-      <button onclick="playPause()">▶️</button>
+    <div class="screen-left">
+      <ul class="menu">
+        <li class="active">Music</li>
+        <li>Videos</li>
+        <li>Photos</li>
+        <li>Extras</li>
+        <li>Settings</li>
+        <li>Now Playing</li>
+      </ul>
     </div>
+
+    <div class="screen-right">
+      <div class="track" id="trackName">Test Song</div>
+      <div class="artist">2BANGUZ</div>
+    </div>
+  </div>
+</body>
+  
+
+  <!-- AUDIO (DO NOT TOUCH) -->
+  <audio id="player" preload="auto"></audio>
+
+  <!-- Click Wheel -->
+  <div class="wheel">
+    <span class="wheel-menu">MENU</span>
+    <span class="wheel-prev">⏮</span>
+
+    <!-- 🔒 SAME PLAY BUTTON, SAME FUNCTION -->
+    <button class="wheel-play" onclick="playPause()">▶️</button>
+
+    <span class="wheel-next">⏭</span>
+    <div class="wheel-center"></div>
   </div>
 
   <button class="buy">$1 • BUY SONG</button>
+
 </div>
 
 <!-- 🔥 Firebase SDKs -->
