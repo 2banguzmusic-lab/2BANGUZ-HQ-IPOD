@@ -217,21 +217,20 @@ function playPause(){
     }
   }
 
- function next(){
-  index = (index + 1) % tracks.length;
+  function next(){
+    index = (index + 1) % tracks.length;
+    load();
+    player.play();
+  }
+
+  function prev(){
+    index = (index - 1 + tracks.length) % tracks.length;
+    load();
+    player.play();
+  }
+
+  // 🔑 LOAD FIRST TRACK
   load();
-  player.play();
-}
-
-function prev(){
-  index = (index - 1 + tracks.length) % tracks.length;
-  load();
-  player.play();
-}
-
-
-  // 🔑 LOAD FIRST TRACK     
-load();
 </script>
 
 </body>
