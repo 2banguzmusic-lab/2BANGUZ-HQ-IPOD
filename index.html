@@ -145,6 +145,50 @@ input::placeholder{
   <!-- iPod visual cue -->
   <div class="ipod-touch"></div>
 </div>
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
+<script>
+  // 🔒 2BANGUZHQ-IPOD Firebase Config (LIVE)
+  const firebaseConfig = {
+    apiKey: "AIzaSyDWACkdw3uQ6HWlECvs9O81ndEcjVbEMnw",
+    authDomain: "banguz-hq-ipod.firebaseapp.com",
+    projectId: "banguz-hq-ipod",
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  const btn = document.querySelector(".btn");
+  const emailInput = document.querySelector('input[type="email"]');
+  const passInput = document.querySelector('input[type="password"]');
+
+  btn.addEventListener("click", () => {
+    const email = emailInput.value.trim();
+    const password = passInput.value.trim();
+
+    if (!email || !password) {
+      alert("Enter email and password");
+      return;
+    }
+
+    // Try sign in → if not exists, create account
+    auth.signInWithEmailAndPassword(email, password)
+      .then(() => {
+        alert("Welcome back to 2BANGUZHQ-IPOD 🔥");
+        // NEXT PAGE LATER:
+        // window.location.href = "dashboard.html";
+      })
+      .catch(() => {
+        auth.createUserWithEmailAndPassword(email, password)
+          .then(() => {
+            alert("Account created. Welcome to HQ 🚀");
+          })
+          .catch(err => alert(err.message));
+      });
+  });
+</script>
 
 </body>
 </html>
