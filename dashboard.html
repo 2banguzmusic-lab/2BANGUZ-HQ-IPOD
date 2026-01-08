@@ -147,21 +147,25 @@ function load(){
 }
 
 function playPause(){
-  player.paused ? player.play() : player.pause();
-}
+  if (player.paused) {
+    player.play();
 
-function next(){
-  index = (index + 1) % tracks.length;
-  load();
-  player.play();
-}
+    db.collection("plays").add({
+      song: tracks[index].name,
+      src: tracks[index].src,
+      playedAt: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then(() => {
+      console.log("Play tracked");
+    })
+    .catch(err => {
+      console.error("Firestore error:", err);
+    });
 
-function prev(){
-  index = (index - 1 + tracks.length) % tracks.length;
-  load();
-  player.play();
+  } else {
+    player.pause();
+  }
 }
-
 
 
 <!-- Firebase SDKs (already added) -->
