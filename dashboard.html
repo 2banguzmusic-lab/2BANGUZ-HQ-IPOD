@@ -31,14 +31,14 @@ body{
   color:white;
 }
 
-.ipod{
-  width:340px;
-  background:rgba(5,7,10,.9);
-  border-radius:32px;
-  padding:24px;
-  border:1px solid rgba(0,246,255,.25);
-  box-shadow:0 0 40px rgba(0,180,255,.35);
-  text-align:center;
+min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    linear-gradient(rgba(5,7,10,.85), rgba(5,7,10,.95)),
+    url("./stadium-skyline.jpg") center/cover no-repeat;
+  color:white;
 }
 
 .screen{
@@ -48,16 +48,8 @@ body{
   border:1px solid rgba(0,246,255,.2);
 }
 
-.track{
-  font-size:18px;
-  font-weight:800;
-}
-
-.artist{
-  font-size:12px;
-  color:var(--cyan);
-  margin-bottom:12px;
-}
+.track{ font-size:18px; font-weight:800; }
+.artist{ font-size:12px; color:var(--cyan); margin-bottom:12px; }
 
 .controls{
   display:flex;
