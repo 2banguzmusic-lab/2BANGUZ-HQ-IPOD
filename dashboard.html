@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>2BANGUZHQ-IPOD | Music</title>
+<title>2BANGUZHQ-IPOD | Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -31,26 +31,21 @@ body{
   color:white;
 }
 
-/* IPOD BODY */
 .ipod{
   width:340px;
   background:rgba(5,7,10,.9);
   border-radius:32px;
   padding:24px;
   border:1px solid rgba(0,246,255,.25);
-  box-shadow:
-    0 0 40px rgba(0,180,255,.35),
-    0 40px 90px rgba(0,0,0,.8);
+  box-shadow:0 0 40px rgba(0,180,255,.35);
   text-align:center;
 }
 
-/* SCREEN */
 .screen{
   background:#0b101a;
   border-radius:20px;
   padding:18px;
   border:1px solid rgba(0,246,255,.2);
-  margin-bottom:20px;
 }
 
 .track{
@@ -61,10 +56,9 @@ body{
 .artist{
   font-size:12px;
   color:var(--cyan);
-  margin-top:4px;
+  margin-bottom:12px;
 }
 
-/* CONTROLS */
 .controls{
   display:flex;
   justify-content:space-around;
@@ -75,11 +69,10 @@ button{
   background:none;
   border:none;
   color:var(--silver);
-  font-size:20px;
+  font-size:22px;
   cursor:pointer;
 }
 
-/* BUY BUTTON */
 .buy{
   margin-top:16px;
   padding:12px;
@@ -91,18 +84,6 @@ button{
   border:none;
   cursor:pointer;
 }
-
-/* SOCIALS */
-.socials{
-  margin-top:18px;
-  font-size:12px;
-}
-
-.socials a{
-  color:var(--cyan);
-  margin:0 6px;
-  text-decoration:none;
-}
 </style>
 </head>
 
@@ -110,66 +91,21 @@ button{
 
 <div class="ipod">
   <div class="screen">
-    <div class="track" id="trackName">My First Song</div>
+    <div class="track" id="trackName">Test Song</div>
     <div class="artist">2BANGUZ</div>
 
-    <audio id="player"></audio>
+    <audio id="player" preload="auto"></audio>
 
     <div class="controls">
-      <button onclick="prev()">⏮</button>
       <button onclick="playPause()">▶️</button>
-      <button onclick="next()">⏭</button>
     </div>
   </div>
 
   <button class="buy">$1 • BUY SONG</button>
-
-  <div class="socials">
-    <a href="#" target="_blank">TikTok</a>
-    <a href="#" target="_blank">Instagram</a>
-    <a href="#" target="_blank">YouTube</a>
-    <a href="#" target="_blank">Facebook</a>
-  </div>
 </div>
 
-<script>
-  const tracks = [
-  { name:"test Song", src:"test_mp3/song1.mp3" }
-];
- 
-let index = 0;
-const player = document.getElementById("player");
-const trackName = document.getElementById("trackName");
-
-function load(){
-  player.src = tracks[index].src;
-  trackName.innerText = tracks[index].name;
-}
-
-function playPause(){
-  if (player.paused) {
-    player.play();
-
-    db.collection("plays").add({
-      song: tracks[index].name,
-      src: tracks[index].src,
-      playedAt: firebase.firestore.FieldValue.serverTimestamp()
-    })
-    .then(() => {
-      console.log("Play tracked");
-    })
-    .catch(err => {
-      console.error("Firestore error:", err);
-    });
-
-  } else {
-    player.pause();
-  }
-}
-
-<!-- Firebase SDKs -->
+<!-- 🔥 Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
 <script>
@@ -183,56 +119,37 @@ function playPause(){
   firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
 
-  // 🎧 MUSIC SETUP
-  const tracks = [
-    { name:"Test Song", src:"test_mp3/song1.mp3" }
-  ];
-
-  let index = 0;
+  // 🎧 MUSIC SETUP (REAL FILE)
   const player = document.getElementById("player");
   const trackName = document.getElementById("trackName");
 
-  function load(){
-    player.src = tracks[index].src;
-    trackName.innerText = tracks[index].name;
-  }
+  const SONG_SRC = "test_mp3/song1.mp3";
+  const SONG_NAME = "Test Song";
+
+  player.src = SONG_SRC;
+  trackName.textContent = SONG_NAME;
+
+  let playLogged = false;
 
   function playPause(){
-    if (player.paused) {
-      player.play();
+    player.play()
+      .then(() => {
+        if (!playLogged) {
+          playLogged = true;
 
-      // Track play
-      db.collection("plays").add({
-        song: tracks[index].name,
-        src: tracks[index].src,
-        playedAt: firebase.firestore.FieldValue.serverTimestamp()
-      }).then(() => {
-        console.log("Play tracked");
-      }).catch(err => {
-        console.error("Firestore error:", err);
+          db.collection("plays").add({
+            song: SONG_NAME,
+            src: SONG_SRC,
+            playedAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+        }
+      })
+      .catch(err => {
+        console.error("AUDIO ERROR:", err);
+        alert("Audio failed to play. Check file path.");
       });
-
-    } else {
-      player.pause();
-    }
   }
-
-  function next(){
-    index = (index + 1) % tracks.length;
-    load();
-    player.play();
-  }
-
-  function prev(){
-    index = (index - 1 + tracks.length) % tracks.length;
-    load();
-    player.play();
-  }
-
-  // 🔑 LOAD FIRST TRACK
-  load();
 </script>
 
 </body>
-
 </html>
