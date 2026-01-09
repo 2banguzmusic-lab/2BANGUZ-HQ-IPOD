@@ -150,32 +150,30 @@ body{
 
 <body>
 
-<div class="screen">
+  <div class="ipod">
 
-  <div class="title-plate">
-  <div class="track" id="trackName">Test Song</div>
-  <div class="artist">2BANGUZ</div>
-</div>
+    <div class="screen">
+      <div class="title-plate">
+        <div class="track" id="trackName">Test Song</div>
+        <div class="artist">2BANGUZ</div>
+      </div>
+    </div>  <!-- ✅ CLOSE SCREEN HERE -->
 
+    <div class="wheel">
+      <div class="wheel-menu">MENU</div>
 
-  <div class="wheel">
-    <div class="wheel-menu">MENU</div>
+      <button class="wheel-prev" onclick="prev()">⏮</button>
 
-    <button class="wheel-prev" onclick="prev()">⏮</button>
+      <button class="wheel-center" onclick="playPause()">▶</button>
 
-    <button class="wheel-center" onclick="playPause()">
-      ▶
-    </button>
+      <button class="wheel-next" onclick="next()">⏭</button>
+    </div>
 
-    <button class="wheel-next" onclick="next()">⏭</button>
+    <button class="buy">$1 • BUY SONG</button>
+
   </div>
 
-  <button class="buy">$1 • BUY SONG</button>
-
-  <audio id="player"></audio>
-
-</div>
-
+</body>
 
 <!-- 🔥 Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
