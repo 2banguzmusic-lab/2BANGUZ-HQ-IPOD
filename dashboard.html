@@ -30,6 +30,17 @@ body{
     linear-gradient(rgba(5,7,10,.45), rgba(5,7,10,.65)),
     url("./stadium skyline.jpg") center/cover no-repeat;
 }
+/* GLASS BLUR BACKDROP */
+.glass-wrap{
+  padding:40px;
+  border-radius:50px;
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  box-shadow:
+    0 0 60px rgba(0,246,255,.25),
+    inset 0 0 40px rgba(255,255,255,.05);
+}
 
 .ipod{
   width:300px;
@@ -152,8 +163,8 @@ body{
 
   <div class="ipod">
 
-    <div class="screen">
-      <div class="title-plate">
+    <div class="glass-wrap">
+      <div class="ipod">
         <div class="track" id="trackName">Test Song</div>
         <div class="artist">(Dont It For Me) 2BANGUZ</div>
       </div>
