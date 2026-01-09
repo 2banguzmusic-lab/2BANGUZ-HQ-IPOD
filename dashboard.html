@@ -32,74 +32,28 @@ body{
   color:white;
 }
 
-min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:
-    linear-gradient(rgba(5,7,10,.85), rgba(5,7,10,.95)),
-    url("./stadium-skyline.jpg") center/cover no-repeat;
-  color:white;
+.ipod{
+  width:300px;
+  padding:20px;
+  border-radius:36px;
+  background:linear-gradient(180deg,#05070a,#000);
+  box-shadow:
+    0 0 30px rgba(0,246,255,.35),
+    0 40px 90px rgba(0,0,0,.9);
+  text-align:center;
 }
 
 .screen{
   background:#0b101a;
-  border-radius:20px;
   padding:18px;
-  border:1px solid rgba(0,246,255,.2);
-}
-
-.track{ font-size:18px; font-weight:800; }
-.artist{ font-size:12px; color:var(--cyan); margin-bottom:12px; }
-
-.controls{
-  display:flex;
-  justify-content:space-around;
-  margin-top:16px;
-}
-
-button{
-  background:none;
-  border:none;
-  color:var(--silver);
-  font-size:22px;
-  cursor:pointer;
-}
-
-.buy{
-  margin-top:16px;
-  padding:12px;
-  width:100%;
-  border-radius:14px;
-  background:linear-gradient(135deg,var(--cyan),var(--neon));
-  color:#05070A;
-  font-weight:900;
-  border:none;
-  cursor:pointer;
-}
- .neon-player{
-  width:320px;
-  padding:24px;
-  border-radius:22px;
-  background:linear-gradient(180deg,#05070a,#000);
-  border:1px solid rgba(0,246,255,.35);
-  box-shadow:
-    0 0 25px rgba(0,246,255,.45),
-    0 30px 80px rgba(0,0,0,.9);
-  text-align:center;
-}
-
-.neon-screen{
-  background:#0b101a;
-  padding:20px;
   border-radius:14px;
   border:1px solid rgba(0,246,255,.25);
+  margin-bottom:20px;
 }
 
 .track{
-  font-size:18px;
-  font-weight:900;
-  color:white;
+  font-size:16px;
+  font-weight:800;
 }
 
 .artist{
@@ -108,23 +62,73 @@ button{
   margin-top:4px;
 }
 
-.neon-controls{
-  display:flex;
-  justify-content:space-around;
-  margin:18px 0;
+/* WHEEL */
+.wheel{
+  width:220px;
+  height:220px;
+  margin:0 auto 18px;
+  border-radius:50%;
+  background:radial-gradient(circle,#111,#000);
+  position:relative;
+  box-shadow:
+    inset 0 0 20px rgba(255,255,255,.15),
+    0 0 30px rgba(0,246,255,.35);
 }
 
-.neon-controls button{
+.wheel-menu{
+  position:absolute;
+  top:14px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:12px;
+  color:#00f6ff;
+}
+
+.wheel-prev{
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
   background:none;
   border:none;
-  color:#9fdfff;
-  font-size:22px;
+  color:#00f6ff;
+  font-size:18px;
+}
+
+.wheel-next{
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  background:none;
+  border:none;
+  color:#00f6ff;
+  font-size:18px;
+}
+
+.wheel-center{
+  position:absolute;
+  width:80px;
+  height:80px;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:#000;
+  border:1px solid rgba(0,246,255,.35);
+  color:#00f6ff;
+  font-size:24px;
   cursor:pointer;
 }
 
-.neon-controls .play{
-  font-size:28px;
-  color:#00f6ff;
+.buy{
+  width:100%;
+  padding:12px;
+  border-radius:14px;
+  background:linear-gradient(135deg,#00f6ff,#00b4ff);
+  border:none;
+  font-weight:900;
+  cursor:pointer;
 }
  
 </style>
@@ -135,38 +139,28 @@ button{
 
 <div class="ipod">
 
-  <!-- iPod Screen -->
   <div class="screen">
-    <div class="screen-left">
-      <ul class="menu">
-        <li class="active">Music</li>
-        <li>Videos</li>
-        <li>Photos</li>
-        <li>Extras</li>
-        <li>Settings</li>
-        <li>Now Playing</li>
-      </ul>
-    </div>
-
-    <div class="neon-player">
-
-  <div class="neon-screen">
     <div class="track" id="trackName">Test Song</div>
     <div class="artist">2BANGUZ</div>
   </div>
 
-  <div class="neon-controls">
-    <button onclick="prev()">⏮</button>
-    <button class="play" onclick="playPause()">▶</button>
-    <button onclick="next()">⏭</button>
+  <div class="wheel">
+    <div class="wheel-menu">MENU</div>
+
+    <button class="wheel-prev" onclick="prev()">⏮</button>
+
+    <button class="wheel-center" onclick="playPause()">
+      ▶
+    </button>
+
+    <button class="wheel-next" onclick="next()">⏭</button>
   </div>
 
   <button class="buy">$1 • BUY SONG</button>
 
-  <audio id="player" preload="auto"></audio>
+  <audio id="player"></audio>
 
 </div>
-
 
 
 <!-- 🔥 Firebase SDKs -->
