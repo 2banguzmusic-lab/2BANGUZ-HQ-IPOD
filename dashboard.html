@@ -149,31 +149,35 @@ body{
 <body>
 
   
-    <div class="ipod"> 
-    <div class="screen">
-      <div class="ipod">
-        <div class="track" id="trackName">Do It For Me</div>
-        <div class="artist">2BANGUZ</div>
-      </div>
-    </div> 
-      
-      <audio id="player" preload="auto"></audio>
-         
-    </div>  
+   <div class="ipod">
 
-    <div class="wheel">
-      <div class="wheel-menu">MENU</div>
+  <div class="screen">
 
-      <button class="wheel-prev" onclick="prev()">⏮</button>
-
-      <button class="wheel-center" onclick="playPause()">▶</button>
-
-      <button class="wheel-next" onclick="next()">⏭</button>
+    <!-- 🔹 TITLE / SONG INFO -->
+    <div class="title-plate">
+      <div class="track" id="trackName">Test Song</div>
+      <div class="artist">2BANGUZ</div>
     </div>
 
-    <button class="buy">$1 • BUY SONG</button>
+    <!-- ✅ AUDIO TAG GOES RIGHT HERE -->
+    <audio id="player" preload="auto"></audio>
 
   </div>
+
+  <!-- 🔹 CLICK WHEEL -->
+  <div class="wheel">
+    <div class="wheel-menu">MENU</div>
+
+    <button class="wheel-prev" onclick="prev()">⏮</button>
+
+    <button class="wheel-center" onclick="playPause()">▶</button>
+
+    <button class="wheel-next" onclick="next()">⏭</button>
+  </div>
+
+  <button class="buy">$1 • BUY SONG</button>
+
+</div>
 
 </body>
 
