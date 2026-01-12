@@ -1,1 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>2BANGUZHQ-IPOD | Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<style>
+  
+:root{
+  --black:#05070A;
+  --neon:#00B4FF;
+  --cyan:#00F6FF;
+  --silver:#C9CCD6;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    linear-gradient(rgba(5,7,10,.45), rgba(5,7,10,.65)),
+    url("./stadium skyline.jpg") center/cover no-repeat;
+}
+/* PLAYING GLOW */
+.ipod.playing{
+  box-shadow:
+    0 0 40px rgba(0,246,255,.45),
+    0 40px 90px rgba(0,0,0,.9);
+}
+
+/* PLAY BUTTON ICON */
+.wheel-center{
+  transition: all .25s ease;
+}
+
+.wheel-center.playing{
+  color:#00f6ff;
+  text-shadow:
+    0 0 8px rgba(0,246,255,.8),
+    0 0 16px rgba(0,180,255,.6);
+}
+.ipod{
+  width:300px;
+  padding:20px;
+  border-radius:36px;
+  background:linear-gradient(180deg,#05070a,#000);
+  box-shadow:
+    0 0 30px rgba(0,246,255,.35),
+    0 40px 90px rgba(0,0,0,.9);
+  text-align:center;
+}
+
+.screen{
+  background:#0b101a;
+  padding:18px;
+  border-radius:14px;
+  border:1px solid rgba(0,246,255,.25);
+  margin-bottom:20px;
+}
+.title-plate{
+  max-width:90%;
+  margin:0 auto 14px auto;
+  background:rgba(0,0,0,.55);
+  border-radius:14px;
+  padding:10px 14px;
+  border:1px solid rgba(0,246,255,.35);
+  box-shadow:
+    inset 0 0 12px rgba(0,246,255,.2),
+    0 0 12px rgba(0,246,255,.25);
+  text-align:center;
+}
+.track{
+  font-size:14px;
+  font-weight:800;
+  color:#eaffff;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.artist{
+  font-size:11px;
+  color:#00f6ff;
+  margin-top:4px;
+}
+/* WHEEL */
+.wheel{
+  width:220px;
+  height:220px;
+  margin:0 auto 18px;
+  border-radius:50%;
+  background:radial-gradient(circle,#111,#000);
+  position:relative;
+  box-shadow:
+    inset 0 0 20px rgba(255,255,255,.15),
+    0 0 30px rgba(0,246,255,.35);
+}
+.wheel-menu{
+  position:absolute;
+  top:14px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:12px;
+  color:#00f6ff;
+}
+.wheel-prev{
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
+  background:none;
+  border:none;
+  color:#00f6ff;
+  font-size:18px;
+}
+
+.wheel-next{
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  background:none;
+  border:none;
+  color:#00f6ff;
+  font-size:18px;
+}
+
+.wheel-center{
+  position:absolute;
+  width:80px;
+  height:80px;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:#000;
+  border:1px solid rgba(0,246,255,.35);
+  color:#00f6ff;
+  font-size:24px;
+  cursor:pointer;
+}
+
+.buy{
+  width:100%;
+  padding:12px;
+  border-radius:14px;
+  background:linear-gradient(135deg,#00f6ff,#00b4ff);
+  border:none;
+  font-weight:900;
+  cursor:pointer;
+}
+ 
+</style>
+
+</head>
+
+<body>
+
+  
+   <div class="ipod">
+
+  <div class="screen">
+
+    <!-- 🔹 TITLE / SONG INFO -->
+    <div class="title-plate">
+      <div class="track" id="trackName">Do It For Me</div>
+      <div class="artist">2BANGUZ</div>
+    </div>
+
+    <!-- ✅ AUDIO TAG GOES RIGHT HERE -->
+    <audio id="player" preload="auto"></audio>
+
+  </div>
+
+  <!-- 🔹 CLICK WHEEL -->
+  <div class="wheel">
+    <div class="wheel-menu">MENU</div>
+
+    <button class="wheel-prev" onclick="prev()">⏮</button>
+
+    <button class="wheel-center" onclick="playPause()">▶</button>
+
+    <button class="wheel-next" onclick="next()">⏭</button>
+  </div>
+
+  <button class="buy">$1 • BUY SONG</button>
+
+</div>
+
+</body>
+
+<!-- 🔥 Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+<script>
+  // 🔒 Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyDWACkdw3uQ6HWlECvs9O81ndEcjVbEMnw",
+    authDomain: "banguz-hq-ipod.firebaseapp.com",
+    projectId: "banguz-hq-ipod",
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  // 🎧 MUSIC SETUP (REAL FILE)
+  const player = document.getElementById("player");
+  const trackName = document.getElementById("trackName");
+
+  const SONG_SRC = "test_mp3/song1.mp3";
+  const SONG_NAME = "Do It For Me";
+
+  player.src = SONG_SRC;
+  trackName.textContent = SONG_NAME;
+
+  let playLogged = false;
+
+ function playPause(){
+  const ipod = document.querySelector(".ipod");
+  const centerBtn = document.querySelector(".wheel-center");
+
+  if (player.paused) {
+    player.play();
+
+    // 🔥 VISUAL: glow + pause icon
+    ipod.classList.add("playing");
+    centerBtn.innerText = "⏸";
+    centerBtn.classList.add("playing");
+
+    // 🔥 FIREBASE: track play ONCE per play session
+    if (!playLogged) {
+      playLogged = true;
+      db.collection("plays").add({
+        song: SONG_NAME,
+        src: SONG_SRC,
+        playedAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    }
+
+  } else {
+    player.pause();
+
+    // 🔥 VISUAL: remove glow + play icon
+    ipod.classList.remove("playing");
+    centerBtn.innerText = "▶";
+    centerBtn.classList.remove("playing");
+  }
+}
+</script>
+
+</body>
+</html>
