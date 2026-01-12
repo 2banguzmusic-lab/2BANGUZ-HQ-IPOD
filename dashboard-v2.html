@@ -76,20 +76,23 @@ body{
   overflow:hidden;
   box-shadow: 0 0 18px rgba(0,246,255,.35);
 }
+/* 💿 ALBUM ART CONTAINER */
+.album-art{
+  width:100%;
+  max-width:180px;
+  height:140px;          /* 👈 THIS IS THE KEY */
+  margin:0 auto 12px;
+  border-radius:12px;
+  overflow:hidden;       /* 👈 crops the image */
+  box-shadow: 0 0 18px rgba(0,246,255,.35);
+}
 
 /* 💿 ALBUM ART IMAGE */
 .album-art img{
-  width:95%;
-  height:100%;
-  object-fit:cover;          /* 🔥 THIS is the key */
-  display:block;
-}
-/* SONG TITLE WRAP */
-.track-wrap{
   width:100%;
-  overflow:hidden;
-  white-space:nowrap;
-  text-align:center;
+  height:100%;
+  object-fit:cover;      /* 👈 forces fit */
+  display:block;
 }  
 .title-plate{
   max-width:90%;
