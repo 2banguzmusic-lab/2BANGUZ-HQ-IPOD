@@ -79,7 +79,7 @@ body{
   display:block;
 }  
 .title-plate{
-  max-width:100%;
+  max-width:90%;
   margin:0 auto 14px auto;
   background:rgba(0,0,0,.55);
   border-radius:14px;
@@ -138,6 +138,11 @@ body{
   transform:translateX(-50%);
   font-size:12px;
   color:#00f6ff;
+  text-decoration:none;
+  cursor:pointer;
+}
+.wheel-menu:hover{
+  text-shadow:0 0 8px rgba(0,246,255,.8);
 }
 .wheel-prev{
   position:absolute;
@@ -216,7 +221,15 @@ body{
 
   <!-- 🔹 CLICK WHEEL -->
   <div class="wheel">
-    <div class="wheel-menu">MENU</div>
+    <a 
+  class="wheel-menu" 
+  href="https://www.youtube.com/@2BanguzTVBreaker 
+  target="_blank" 
+  rel="noopener"
+>
+  MENU
+</a>
+
 
     <button class="wheel-prev" onclick="prev()">⏮</button>
 
