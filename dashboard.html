@@ -30,8 +30,24 @@ body{
     linear-gradient(rgba(5,7,10,.45), rgba(5,7,10,.65)),
     url("./stadium skyline.jpg") center/cover no-repeat;
 }
+/* PLAYING GLOW */
+.ipod.playing{
+  box-shadow:
+    0 0 40px rgba(0,246,255,.45),
+    0 40px 90px rgba(0,0,0,.9);
+}
 
+/* PLAY BUTTON ICON */
+.wheel-center{
+  transition: all .25s ease;
+}
 
+.wheel-center.playing{
+  color:#00f6ff;
+  text-shadow:
+    0 0 8px rgba(0,246,255,.8),
+    0 0 16px rgba(0,180,255,.6);
+}
 .ipod{
   width:300px;
   padding:20px;
