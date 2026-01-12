@@ -224,11 +224,19 @@ body{
 
   let playLogged = false;
 
-  function playPause(){
+ function playPause(){
+  const ipod = document.querySelector(".ipod");
+  const centerBtn = document.querySelector(".wheel-center");
+
   if (player.paused) {
     player.play();
 
-    // track play ONCE per play session
+    // 🔥 VISUAL: glow + pause icon
+    ipod.classList.add("playing");
+    centerBtn.innerText = "⏸";
+    centerBtn.classList.add("playing");
+
+    // 🔥 FIREBASE: track play ONCE per play session
     if (!playLogged) {
       playLogged = true;
       db.collection("plays").add({
@@ -240,6 +248,11 @@ body{
 
   } else {
     player.pause();
+
+    // 🔥 VISUAL: remove glow + play icon
+    ipod.classList.remove("playing");
+    centerBtn.innerText = "▶";
+    centerBtn.classList.remove("playing");
   }
 }
 </script>
