@@ -78,6 +78,34 @@ body{
     0 0 12px rgba(0,246,255,.25);
   text-align:center;
 }
+  /* Scrolling title wrapper */
+.track-wrap{
+  width:100%;
+  overflow:hidden;
+  position:relative;
+}
+
+/* Default (short titles stay centered) */
+.track{
+  display:inline-block;
+  white-space:nowrap;
+  padding-left:100%;
+  animation:scrollTitle 10s linear infinite;
+}
+
+/* If title is short, stop scrolling */
+.track-wrap:not(.scroll) .track{
+  padding-left:0;
+  animation:none;
+  text-align:center;
+}
+
+/* Scroll animation */
+@keyframes scrollTitle{
+  0%   { transform:translateX(0); }
+  100% { transform:translateX(-100%); }
+}
+
 .track{
   font-size:14px;
   font-weight:800;
@@ -85,6 +113,24 @@ body{
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
+}
+  /* SONG TITLE WRAP (SCROLL SUPPORT) */
+.track-wrap{ 
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+}
+
+/* SCROLLING TITLE */
+.track.scroll{
+  display: inline-block;
+  animation: scrollText 8s linear infinite;
+}
+
+/* SCROLL ANIMATION */
+@keyframes scrollText{
+  0%   { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
 }
 .artist{
   font-size:11px;
@@ -170,7 +216,7 @@ body{
   <div class="screen">
 
     <!-- 🔹 TITLE / SONG INFO -->
-    <div class="title-plate">
+    <div class="track-wrap">
       <div class="track" id="trackName">Do It For Me</div>
       <div class="artist">2BANGUZ</div>
     </div>
@@ -220,7 +266,12 @@ body{
   const SONG_NAME = "Do It For Me";
 
   player.src = SONG_SRC;
+ 
   trackName.textContent = SONG_NAME;
+trackName.parentElement.classList.toggle(
+  "scroll",
+  trackName.scrollWidth > trackName.parentElement.clientWidth
+);
 
   let playLogged = false;
 
