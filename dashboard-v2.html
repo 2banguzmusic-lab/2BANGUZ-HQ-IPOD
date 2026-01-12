@@ -78,58 +78,35 @@ body{
     0 0 12px rgba(0,246,255,.25);
   text-align:center;
 }
-  /* Scrolling title wrapper */
+/* SONG TITLE WRAP */
 .track-wrap{
   width:100%;
   overflow:hidden;
-  position:relative;
-}
-
-/* Default (short titles stay centered) */
-.track{
-  display:inline-block;
   white-space:nowrap;
-  padding-left:100%;
-  animation:scrollTitle 10s linear infinite;
-}
-
-/* If title is short, stop scrolling */
-.track-wrap:not(.scroll) .track{
-  padding-left:0;
-  animation:none;
   text-align:center;
 }
 
-/* Scroll animation */
-@keyframes scrollTitle{
-  0%   { transform:translateX(0); }
-  100% { transform:translateX(-100%); }
-}
-
+/* Default: short titles stay centered */
 .track{
   font-size:14px;
   font-weight:800;
   color:#eaffff;
+  display:inline-block;
   white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-  /* SONG TITLE WRAP (SCROLL SUPPORT) */
-.track-wrap{ 
-  overflow: hidden;
-  white-space: nowrap;
-  width: 100%;
 }
 
-/* SCROLLING TITLE */
-.track.scroll{
-  display: inline-block;
-  animation: scrollText 8s linear infinite;
+/* Only scroll when JS adds .scroll to the wrapper */
+.track-wrap.scroll{
+  text-align:left;
 }
 
-/* SCROLL ANIMATION */
+.track-wrap.scroll .track{
+  padding-left:100%;
+  animation: scrollText 10s linear infinite;
+}
+
 @keyframes scrollText{
-  0%   { transform: translateX(100%); }
+  0%   { transform: translateX(0); }
   100% { transform: translateX(-100%); }
 }
 .artist{
@@ -241,7 +218,6 @@ body{
 
 </div>
 
-</body>
 
 <!-- 🔥 Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
