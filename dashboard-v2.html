@@ -49,7 +49,7 @@ body{
     0 0 16px rgba(0,180,255,.6);
 }
 .ipod{
-  width:315px;
+  width:300px;
   padding:20px;
   border-radius:36px;
   background:linear-gradient(180deg,#05070a,#000);
@@ -58,23 +58,14 @@ body{
     0 40px 90px rgba(0,0,0,.9);
   text-align:center;
 }
+
 .screen{
   background:#0b101a;
   padding:18px;
   border-radius:14px;
   border:1px solid rgba(0,246,255,.25);
   margin-bottom:20px;
-
-  display:flex;
-  flex-direction:column;
-  align-items:center;
 }
-.album-art img{
-  width:100%;
-  height:100%;
-  object-fit:cover;    /* FORCE FIT */
-  display:block;
-}  
 .title-plate{
   max-width:90%;
   margin:0 auto 14px auto;
@@ -87,29 +78,13 @@ body{
     0 0 12px rgba(0,246,255,.25);
   text-align:center;
 }
-
-/* Default: short titles stay centered */
 .track{
   font-size:14px;
   font-weight:800;
   color:#eaffff;
-  display:inline-block;
   white-space:nowrap;
-}
-
-/* Only scroll when JS adds .scroll to the wrapper */
-.track-wrap.scroll{
-  text-align:left;
-}
-
-.track-wrap.scroll .track{
-  padding-left:100%;
-  animation: scrollText 10s linear infinite;
-}
-
-@keyframes scrollText{
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-100%); }
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 .artist{
   font-size:11px;
@@ -135,11 +110,6 @@ body{
   transform:translateX(-50%);
   font-size:12px;
   color:#00f6ff;
-  text-decoration:none;
-  cursor:pointer;
-}
-.wheel-menu:hover{
-  text-shadow:0 0 8px rgba(0,246,255,.8);
 }
 .wheel-prev{
   position:absolute;
@@ -177,6 +147,7 @@ body{
   font-size:24px;
   cursor:pointer;
 }
+
 .buy{
   width:100%;
   padding:12px;
@@ -186,14 +157,7 @@ body{
   font-weight:900;
   cursor:pointer;
 }
-.button-stack{
-  width:100%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
-  margin-top:12px;
-}
+ 
 </style>
 
 </head>
@@ -204,15 +168,9 @@ body{
    <div class="ipod">
 
   <div class="screen">
-  
-    <!-- 💿 ALBUM ART -->
-<div class="album-art.jpg">
- <img src="./album-art.jpg/" alt="Album Art">
-</div>
 
     <!-- 🔹 TITLE / SONG INFO -->
-  <div class="title-plate">
-    <div class="track-wrap">
+    <div class="title-plate">
       <div class="track" id="trackName">Do It For Me</div>
       <div class="artist">2BANGUZ</div>
     </div>
@@ -220,20 +178,12 @@ body{
     <!-- ✅ AUDIO TAG GOES RIGHT HERE -->
     <audio id="player" preload="auto"></audio>
 
+  </div>
 
   <!-- 🔹 CLICK WHEEL -->
   <div class="wheel">
-    <a 
-  class="wheel-menu" 
-  href= https://www.youtube.com/@2BanguzTVBreaker
-  target="_blank" 
-  rel="noopener"
->
- 
-      MENU
-    (YOUTUBE)
-</a>
-   
+    <div class="wheel-menu">MENU</div>
+
     <button class="wheel-prev" onclick="prev()">⏮</button>
 
     <button class="wheel-center" onclick="playPause()">▶</button>
@@ -241,20 +191,17 @@ body{
     <button class="wheel-next" onclick="next()">⏭</button>
   </div>
 
-  <!-- 🔹 ACTION BUTTONS -->
-<div class="button-stack">
-  <a href="https://buy.stripe.com/test_3cI28j1Ry4wI6EpAhr3s102"
-     class="buy available"
-     target="_blank"
-     rel="noopener">
-    Available Now
-  </a>
+<a href= https://buy.stripe.com/test_3cI28j1Ry4wI6EPahr3sI02
+   class="buy" 
+   target="_blank" 
+   rel="noopener">
+   $1 • BUY SONG
+</a>
 
-  <button class="buy merch" disabled>
-    Merch (Coming Soon)
-  </button>
+
 </div>
 
+</body>
 
 <!-- 🔥 Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -279,12 +226,7 @@ body{
   const SONG_NAME = "Do It For Me";
 
   player.src = SONG_SRC;
- 
   trackName.textContent = SONG_NAME;
-trackName.parentElement.classList.toggle(
-  "scroll",
-  trackName.scrollWidth > trackName.parentElement.clientWidth
-);
 
   let playLogged = false;
 
