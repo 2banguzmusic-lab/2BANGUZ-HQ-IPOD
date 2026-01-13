@@ -58,19 +58,16 @@ body{
     0 40px 90px rgba(0,0,0,.9);
   text-align:center;
 }
-
 .screen{
   background:#0b101a;
-  padding:20px;
-  border-radius:16px;
+  padding:18px;
+  border-radius:14px;
   border:1px solid rgba(0,246,255,.25);
-  margin-bottom:22px;
+  margin-bottom:20px;
 
-  min-height:300px;          /* 🔥 THIS MAKES IT BIGGER */
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:flex-start;
 }
 .album-art img{
   width:100%;
@@ -189,6 +186,14 @@ body{
   font-weight:900;
   cursor:pointer;
 }
+.button-stack{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  margin-top:12px;
+}
 </style>
 
 </head>
@@ -236,17 +241,19 @@ body{
     <button class="wheel-next" onclick="next()">⏭</button>
   </div>
 
-  <a href=https://buy.stripe.com/test_3cI28j1Ry4wI6EPahr3sI02
-   class="buy" 
-   target="_blank" 
-   rel="noopener">
-   Available Now
-</a>
+  <!-- 🔹 ACTION BUTTONS -->
+<div class="button-stack">
+  <a href="https://buy.stripe.com/test_3cI28j1Ry4wI6EpAhr3s102"
+     class="buy available"
+     target="_blank"
+     rel="noopener">
+    Available Now
+  </a>
 
-
+  <button class="buy merch" disabled>
+    Merch (Coming Soon)
+  </button>
 </div>
-
-
 
 
 <!-- 🔥 Firebase SDKs -->
