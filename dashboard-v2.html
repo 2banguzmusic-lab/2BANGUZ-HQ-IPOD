@@ -180,6 +180,23 @@ body{
   font-size:24px;
   cursor:pointer;
 }
+.cta-stack{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin-top:12px;
+}
+
+.buy.available{
+  background:linear-gradient(135deg,#00f6ff,#00b4ff);
+}
+
+.buy.merch{
+  background:rgba(0,0,0,.55);
+  border:1px solid rgba(0,246,255,.4);
+  color:#00f6ff;
+  font-size:13px;
+}
 
 .buy{
   width:100%;
@@ -216,8 +233,10 @@ body{
 
     <!-- ✅ AUDIO TAG GOES RIGHT HERE -->
     <audio id="player" preload="auto"></audio>
-
-  </div>
+<div class="cta-stack">
+  <button class="buy available" onclick="openAvailable()">Available Now</button>
+  <button class="buy merch" onclick="openMerch()">Merch</button>
+</div>
 
   <!-- 🔹 CLICK WHEEL -->
   <div class="wheel">
