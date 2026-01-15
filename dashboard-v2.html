@@ -48,23 +48,58 @@ body{
     0 0 8px rgba(0,246,255,.8),
     0 0 16px rgba(0,180,255,.6);
 }
-.ipod{
+  .ipod{
   width:315px;
   padding:20px;
   border-radius:36px;
-  background:linear-gradient(180deg,#05070a,#000);
-  box-shadow:
-    0 0 30px rgba(0,246,255,.35),
-    0 40px 90px rgba(0,0,0,.9);
   text-align:center;
 }
-
+/* 🔥 3D IPOD BODY ENHANCEMENT */
+.ipod{
+  position: relative;
+  background:
+    linear-gradient(160deg,#0c0f14 0%, #05070a 45%, #000 100%);
+  box-shadow:
+    inset 0 2px 3px rgba(255,255,255,.15),
+    inset 0 -6px 12px rgba(0,0,0,.9),
+    0 25px 60px rgba(0,0,0,.85),
+    0 0 35px rgba(0,246,255,.25);
+}
+  /* 🔹 METAL EDGE */
+.ipod::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:36px;
+  pointer-events:none;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.08),
+    inset 0 0 18px rgba(0,246,255,.15);
+}
+/* 🔹 GLASS SCREEN */
 .screen{
-  background:#0b101a;
-  padding:18px;
+  position:relative;
+  background:linear-gradient(180deg,#0d1220,#060911);
+  box-shadow:
+    inset 0 0 18px rgba(0,246,255,.18),
+    inset 0 -6px 14px rgba(0,0,0,.8),
+    0 8px 16px rgba(0,0,0,.8);
+}
+/* 🔹 SCREEN REFLECTION */
+.screen::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:45%;
+  background:linear-gradient(
+    120deg,
+    rgba(255,255,255,.15),
+    rgba(255,255,255,0)
+  );
   border-radius:14px;
-  border:1px solid rgba(0,246,255,.25);
-  margin-bottom:20px;
+  pointer-events:none;
 }
 .title-plate{
   max-width:90%;
@@ -91,17 +126,31 @@ body{
   color:#00f6ff;
   margin-top:4px;
 }
-/* WHEEL */
 .wheel{
   width:220px;
   height:220px;
   margin:0 auto 18px;
   border-radius:50%;
-  background:radial-gradient(circle,#111,#000);
   position:relative;
+}
+/* 🔹 3D CLICK WHEEL */
+.wheel{
+  background:
+    radial-gradient(circle at top,#1a1a1a,#000);
   box-shadow:
-    inset 0 0 20px rgba(255,255,255,.15),
-    0 0 30px rgba(0,246,255,.35);
+    inset 0 2px 4px rgba(255,255,255,.2),
+    inset 0 -10px 18px rgba(0,0,0,.9),
+    0 10px 22px rgba(0,0,0,.85),
+    0 0 24px rgba(0,246,255,.25);
+}
+/* 🔹 CENTER BUTTON */
+.wheel-center{
+  background:
+    radial-gradient(circle,#05070a,#000);
+  box-shadow:
+    inset 0 2px 6px rgba(255,255,255,.25),
+    inset 0 -4px 10px rgba(0,0,0,.9),
+    0 6px 12px rgba(0,0,0,.8);
 }
 .wheel-menu{
   position:absolute;
@@ -215,7 +264,6 @@ body{
   Merch (Coming Soon)
 </button>
 </div>
-</body>
 
 <!-- 🔥 Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -274,6 +322,14 @@ body{
     centerBtn.innerText = "▶";
     centerBtn.classList.remove("playing");
   }
+}
+function prev(){
+  player.currentTime = 0;
+}
+
+function next(){
+  player.currentTime = 0;
+  player.play();
 }
   function openMerch() {
     window.open("https://2banguz-collective.myshopify.com/");
