@@ -36,7 +36,11 @@ body{
     0 0 40px rgba(0,246,255,.45),
     0 40px 90px rgba(0,0,0,.9);
 }
-
+/* 🔥 DEPTH SHADOW */
+.ipod{
+  transform: translateZ(0);
+  filter: drop-shadow(0 18px 30px rgba(0,0,0,.9));
+}
 /* PLAY BUTTON ICON */
 .wheel-center{
   transition: all .25s ease;
@@ -65,16 +69,29 @@ body{
     0 25px 60px rgba(0,0,0,.85),
     0 0 35px rgba(0,246,255,.25);
 }
-  /* 🔹 METAL EDGE */
-.ipod::before{
+  /* 🔥 HOVER 3D TILT */
+.ipod{
+  transition: transform .4s ease;
+}
+
+.ipod:hover{
+  transform: perspective(800px) rotateX(4deg) rotateY(-4deg);
+}
+/* 🔥 TOP LIGHT SOURCE */
+.ipod::after{
   content:"";
   position:absolute;
-  inset:0;
+  top:0;
+  left:0;
+  right:0;
+  height:35%;
   border-radius:36px;
+  background:linear-gradient(
+    160deg,
+    rgba(255,255,255,.18),
+    rgba(255,255,255,0)
+  );
   pointer-events:none;
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,.08),
-    inset 0 0 18px rgba(0,246,255,.15);
 }
 /* 🔹 GLASS SCREEN */
 .screen{
@@ -85,6 +102,14 @@ body{
     inset 0 -6px 14px rgba(0,0,0,.8),
     0 8px 16px rgba(0,0,0,.8);
 }
+  /* 🔥 FLOATING SCREEN */
+.screen{
+  transform: translateZ(12px);
+  box-shadow:
+    inset 0 0 18px rgba(0,246,255,.18),
+    0 12px 20px rgba(0,0,0,.9);
+}
+
 /* 🔹 SCREEN REFLECTION */
 .screen::after{
   content:"";
